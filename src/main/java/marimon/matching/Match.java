@@ -25,12 +25,12 @@ class MatchInput<T> {
         this.input = input;
     }
 
+
+   /** TODO
     public <R> R in(PartialFunction<T, R>... funcs) {
-        Lists.asList(funcs);
-
-
+        return Lists.asList(funcs);
     }
-
+*/
     public <R> R inImperative(PartialFunction<T, R>... funcs) {
         // I'd like to use a dropWhile equivalent but didn't find one.
         boolean success = false;
