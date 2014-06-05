@@ -19,6 +19,8 @@ public interface List<T> {
     T head();
 
     List<T> tail();
+
+    boolean isEmpty();
 }
 
 class Nil<T> implements List<T> {
@@ -42,13 +44,20 @@ class Nil<T> implements List<T> {
     public List<T> tail() {
         throw new NoSuchElementException();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 }
 
 class Const<T> implements List<T> {
 
     private java.util.List<T> content;
 
-    Const(java.util.List<T> content) {this.content = content;}
+    Const(java.util.List<T> content) {
+        this.content = content;
+    }
 
     @Override
     public <R> List<R> flatMap(Function<? super T, ? extends List<? extends R>> f) {
@@ -63,11 +72,18 @@ class Const<T> implements List<T> {
     }
 
     @Override
-    public T head() {return content.get(0);}
+    public T head() {
+        return content.get(0);
+    }
 
     @Override
     public List<T> tail() {
-        if(content.size()>1) return new Const(content.subList(1, content.size()));
+        if (content.size() > 1) return new Const(content.subList(1, content.size()));
         else return new Nil<>();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
     }
 }

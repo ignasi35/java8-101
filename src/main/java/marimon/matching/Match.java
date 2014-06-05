@@ -17,12 +17,40 @@ public class Match {
 }
 
 class MatchInput<T> {
-    private T input;
+    private final T input;
 
     MatchInput(T input) {
         this.input = input;
     }
 
+
+    public <R> R in(PartialFunction<T, R>... funcs) {
+
+        marimon.monad.List<PartialFunction<T, R>> list = Lists.asList(funcs);
+
+        return new MatchInput<T>(input).in(list);
+    }
+
+    private <R> R in(final List<PartialFunction<T, R>> list) {
+        if (list.isEmpty()) throw new MatchError();
+        else {
+            final PartialFunction<T, R> head = list.head();
+            final List<PartialFunction<T, R>> tail = list.tail();
+            PartialFunction<T, R> trOrElse = head.<T, R>orElse(new PartialFunction<T, R>() {
+                @Override
+                public boolean isDefinedAt(T t) {
+                    return true;
+                }
+
+                @Override
+                public R apply(T t) {
+                    return (R) Match.match(input).in(tail);
+                }
+            });
+            return trOrElse.apply(input);
+        }
+
+    }
 
     public <R> R inImperative(PartialFunction<T, R>... funcs) {
         // I'd like to use a dropWhile equivalent but didn't find one.

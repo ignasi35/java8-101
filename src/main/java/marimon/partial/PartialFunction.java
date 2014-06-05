@@ -1,7 +1,5 @@
 package marimon.partial;
 
-import marimon.monad.Option;
-
 import java.util.function.Function;
 
 public interface PartialFunction<T, R> extends Function<T, R> {
