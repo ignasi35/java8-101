@@ -57,7 +57,8 @@ class Const<T> implements List<T> {
 
     @Override
     public <R> List<R> map(Function<? super T, ? extends R> f) {
-        java.util.List<R> rs = content.stream().map(f).collect(Collectors.toList());
+        java.util.List<R> rs = content.stream().map(f
+        ).collect(Collectors.toList());
         return new Const(rs);
     }
 

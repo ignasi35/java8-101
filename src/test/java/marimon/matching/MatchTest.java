@@ -4,9 +4,7 @@ import marimon.partial.PartialFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by ignasi on 22/04/14.
- */
+
 public class MatchTest {
 
     @Test
@@ -26,10 +24,10 @@ public class MatchTest {
 
         Object input = (Object) "42items";
 
-        /** TODO
-        Integer length = Match.match(input).in(caseAlphabetic, caseInteger, caseDouble);
+
+        Integer length = Match.match(input).inImperative(caseAlphabetic,
+                caseInteger, caseDouble);
         Assert.assertEquals(7, length.intValue());
-         */
 
     }
 
