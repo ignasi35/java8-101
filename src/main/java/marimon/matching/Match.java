@@ -34,19 +34,18 @@ class MatchInput<T> {
     private <R> R in(final List<PartialFunction<T, R>> list) {
         if (list.isEmpty()) throw new MatchError();
         else {
-            final PartialFunction<T, R> head = list.head();
-            final List<PartialFunction<T, R>> tail = list.tail();
-            PartialFunction<T, R> trOrElse = head.<T, R>orElse(new PartialFunction<T, R>() {
-                @Override
-                public boolean isDefinedAt(T t) {
-                    return true;
-                }
+            final PartialFunction<T, R> trOrElse = list.head()
+                    .<T, R>orElse(new PartialFunction<T, R>() {
+                        @Override
+                        public boolean isDefinedAt(T t) {
+                            return true;
+                        }
 
-                @Override
-                public R apply(T t) {
-                    return (R) Match.match(input).in(tail);
-                }
-            });
+                        @Override
+                        public R apply(T t) {
+                            return (R) Match.match(input).in(list.tail());
+                        }
+                    });
             return trOrElse.apply(input);
         }
 
