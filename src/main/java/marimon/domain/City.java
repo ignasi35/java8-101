@@ -6,4 +6,8 @@ public class City {
     public City(String street) {
         this.street = street;
     }
+
+    public String getStreet() {
+        return street;
+    }
 }

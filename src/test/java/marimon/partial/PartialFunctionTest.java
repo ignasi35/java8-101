@@ -1,9 +1,12 @@
 package marimon.partial;
 
+import marimon.lift.Lifters;
 import marimon.monad.Option;
 import marimon.monad.Options;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.function.Function;
 
 /**
  * Created by ignasi on 22/04/14.

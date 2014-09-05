@@ -22,4 +22,8 @@ public class Address {
     public Address(Option<City> city) {
         this.city = city;
     }
+
+    public Option<City> getCity() {
+        return city;
+    }
 }

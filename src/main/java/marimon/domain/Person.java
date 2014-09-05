@@ -19,6 +19,10 @@ public class Person {
         }
     }
 
+    public Option<Address> getAddress() {
+        return address;
+    }
+
     public Person(Option<Address> address) {
         this.address = address;
     }

@@ -7,16 +7,6 @@ import java.util.function.Function;
 
 public interface PartialFunction<T, R> extends Function<T, R> {
 
-    boolean isDefinedAt(T t);
-
-    default OrElse<T, R> orElse(PartialFunction<? super T, ? extends R> pf) {
-        return new OrElse<>(this, pf);
-    }
-
-    @Override
-    default <Q> AndThen<T, R, Q> andThen(Function<? super R, ? extends Q> f2) {
-        return new AndThen<>(this, f2);
-    }
 
     /**
      * Because PartialFunction extends Function, you must implement apply but it's not safe to invoke it directly,
@@ -29,6 +19,10 @@ public interface PartialFunction<T, R> extends Function<T, R> {
     @Override
     @Deprecated
     R apply(T t);
+
+    boolean isDefinedAt(T t);
+
+    // default methods
 
     default Option<R> get(T t) {
         if (isDefinedAt(t))
@@ -45,6 +39,19 @@ public interface PartialFunction<T, R> extends Function<T, R> {
             return defaultValue;
 
     }
+
+    // DSL
+
+    default OrElse<T, R> orElse(PartialFunction<? super T, ? extends R> pf) {
+        return new OrElse<>(this, pf);
+    }
+
+    @Override
+    default <Q> AndThen<T, R, Q> andThen(Function<? super R, ? extends Q> f2) {
+        return new AndThen<>(this, f2);
+    }
+
+
 }
 
 class AndThen<T, R, Q> implements PartialFunction<T, Q> {

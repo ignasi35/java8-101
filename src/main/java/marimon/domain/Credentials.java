@@ -24,4 +24,8 @@ public class Credentials {
     public <T> Option<T> get(Function<Credentials, Option<T>> f){
         return f.apply(this);
     }
+
+    public Option<Person> getPerson() {
+        return person;
+    }
 }

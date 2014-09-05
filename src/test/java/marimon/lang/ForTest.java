@@ -38,7 +38,7 @@ public class ForTest {
                 street;
     }
 
-    public Function<Credentials, Option<String>> streetName =
+    public Function<Credentials, Option<String>> streetName1 =
             (credentials) -> For.comprehension(
                     credentials.person,
                     (Person p) -> p.address,
@@ -46,14 +46,27 @@ public class ForTest {
                     (City c) -> c.street
             );
 
+    public Function<Credentials, Option<String>> streetName2 =
+            (credentials) -> For.comprehension(
+                    credentials.getPerson(),
+                    Person::getAddress,
+                    Address::getCity,
+                    City::getStreet
+            );
+
+
     @Test
     public void whenFieldIsMissingNoneIsReturned() {
-        assertEquals(Options.none(), incompleteCredentials.get(streetName));
+        assertEquals(Options.none(), incompleteCredentials.get(streetName1));
     }
 
     @Test
     public void whenModelIsCompleteValueIsReturned() {
-        assertEquals(Options.some("Gran de Gràcia"), credentials.get(streetName));
+        assertEquals(Options.some("Gran de Gràcia"), credentials.get(streetName1));
+    }
+    @Test
+    public void whenModelIsCompleteValueIsReturned2() {
+        assertEquals(Options.some("Gran de Gràcia"), credentials.get(streetName2));
     }
 
 }
