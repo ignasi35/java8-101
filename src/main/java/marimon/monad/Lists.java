@@ -1,20 +1,23 @@
 package marimon.monad;
 
-import java.util.Arrays;
-
-/**
- * Created by ignasi on 22/04/14.
- */
 public class Lists {
+
+    public static final List NIL = new Nil();
+
     public static <T> List<T> asList(T[] t) {
-        if(t.length>0) return Lists.list(t) ;
+        if (t.length > 0) return Lists.of(t);
         else return Lists.nil();
     }
 
-    static <T> List<T> list(T[] t){
-return new Const(Arrays.asList(t));
+    public static <T> List<T> of(T[] t) {
+        List<T> acc = NIL;
+        for (int i = t.length - 1; i > 0; i--) {
+            acc = new Const<T>(t[i], acc);
+        }
+        return acc;
     }
-    static <T> List<T> nil(){
-        return new Nil();
+
+    public static <T> List<T> nil() {
+        return NIL;
     }
 }

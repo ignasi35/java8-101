@@ -1,6 +1,7 @@
 package marimon.lang;
 
 import marimon.monad.Option;
+import marimon.tries.Try;
 
 import java.util.function.Function;
 
@@ -14,6 +15,14 @@ public class For {
 
     public static <A, B, C> Option<C> comprehension(Option<A> input,
                                                     Function<A, Option<B>> f1,
+                                                    Function<B, C> f2) {
+        return input
+                .flatMap((a) -> f1.apply(a))
+                .map((b) -> f2.apply(b));
+    }
+
+    public static <A, B, C> Try<C> comprehension(Try<A> input,
+                                                    Function<A, Try<B>> f1,
                                                     Function<B, C> f2) {
         return input
                 .flatMap((a) -> f1.apply(a))
