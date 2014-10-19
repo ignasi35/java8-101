@@ -36,8 +36,8 @@ public class Main<T extends Location> implements Unchecked {
 //      Function<Supplier<Connection>,
 //        BiFunction<Supplier<Statement>,
 //          Function<Supplier<ResultSet>, List<T>>, List<T>>>> doAll =
-//      ds -> conn -> (stmt, f) ->
-//        f.apply(unchecked(() -> stmt.get().executeQuery(sql)));
+//      ds -> conn -> (stmt, apply2) ->
+//        apply2.apply(unchecked(() -> stmt.get().executeQuery(sql)));
 //
 //
 //

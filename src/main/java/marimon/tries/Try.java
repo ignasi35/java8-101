@@ -4,12 +4,16 @@ import java.util.function.Function;
 
 public interface Try<T> {
 
-    <R> Try<R> map(Function<T, R> f) ;
-    <R> Try<R> flatMap(Function<T, Try<R>> f) ;
+  <R> Try<R> map(Function<T, R> f);
 
-    T get();
+  <R> Try<R> flatMap(Function<T, Try<R>> f);
 
-    boolean isSuccess();
-    default boolean isFailure(){return !isSuccess() ;}
+  T get();
+
+  boolean isSuccess();
+
+  default boolean isFailure() {
+    return !isSuccess();
+  }
 }
 

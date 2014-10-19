@@ -9,9 +9,9 @@ public class Lists {
         else return Lists.nil();
     }
 
-    public static <T> List<T> of(T[] t) {
+    public static <T> List<T> of(T... t) {
         List<T> acc = NIL;
-        for (int i = t.length - 1; i > 0; i--) {
+        for (int i = t.length - 1; i >= 0; i--) {
             acc = new Const<T>(t[i], acc);
         }
         return acc;
